@@ -32,5 +32,7 @@ if (func) {
         console.error(`invalid arg: '${func}' expected 'a' or 'b'`);
     }
 } else {
-    console.error('please specify if you want to run part a or b');
+    for (const func in funcs) {
+        funcs[func]();
+    }
 }
