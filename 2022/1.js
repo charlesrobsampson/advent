@@ -1,13 +1,4 @@
-const fs = require('fs');
-
-const path = process.argv[1].replace(/\\/g, '/').split('/');
-const day = path[path.length-1].split('.')[0];
-
-const fn = `${__dirname.replace(/\\/g, '/')}/input/${day}.txt`;
-
-function a() {
-    const input = fs.readFileSync(fn, 'utf-8');
-    console.log(`day${day} part a`);
+function a(input) {
     const items = input.split('\n');
     let max = 0;
     let cals = 0;
@@ -25,9 +16,7 @@ function a() {
     console.log(`Max calories: ${max}`);
 }
 
-function b() {
-    const input = fs.readFileSync(fn, 'utf-8');
-    console.log(`day${day} part b`);
+function b(input) {
     const items = input.split('\n');
     items.push(0);
     let max = [
@@ -58,22 +47,7 @@ function b() {
         return a+ b;
     })}`);}
 
-
-
-
-const funcs = {
+module.exports = {
     a,
     b
 };
-const func = process.argv[2];
-if (func) {
-    if (func === 'a' || func === 'b') {
-        funcs[func]();
-    } else {
-        console.error(`invalid arg: '${func}' expected 'a' or 'b'`);
-    }
-} else {
-    for (const func in funcs) {
-        funcs[func]();
-    }
-}
