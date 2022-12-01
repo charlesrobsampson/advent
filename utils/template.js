@@ -1,9 +1,9 @@
 const fs = require('fs');
 
-const path = process.argv[1].split('/');
+const path = process.argv[1].replace(/\\/g, '/').split('/');
 const day = path[path.length-1].split('.')[0];
 
-const fn = `${__dirname}/input/${day}.txt`;
+const fn = `${__dirname.replace(/\\/g, '/')}/input/${day}.txt`;
 
 function a() {
     const input = fs.readFileSync(fn, 'utf-8');
