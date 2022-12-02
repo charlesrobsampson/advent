@@ -56,7 +56,8 @@ function b(input) {
             score += vals[win[elf]] + 6;
         }
     });
-    console.log(`score: ${score}`);}
+    console.log(`score: ${score}`);
+}
 
 module.exports = {
     a,

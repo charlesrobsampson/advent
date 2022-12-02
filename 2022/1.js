@@ -45,7 +45,8 @@ function b(input) {
     });
     console.log(`Max calories: ${max.reduce((a, b) => {
         return a+ b;
-    })}`);}
+    })}`);
+}
 
 module.exports = {
     a,
