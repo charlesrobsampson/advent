@@ -14,7 +14,7 @@ function a(input) {
         Y: 2,
         Z: 3
     };
-    const rounds = input.split('\r\n');
+    const rounds = input.split('\n');
     let score = 0;
     rounds.forEach(round => {
         const [elf, you] = round.split(' ');
@@ -44,7 +44,7 @@ function b(input) {
         B: 2,
         C: 3
     };
-    const rounds = input.split('\r\n');
+    const rounds = input.split('\n');
     let score = 0;
     rounds.forEach(round => {
         const [elf, outcome] = round.split(' ');

@@ -6,7 +6,7 @@ const example = process.argv[5] || false;
 
 const dayToRun = require(`./${year}/${day}`);
 const fn = `${__dirname.replace(/\\/g, '/')}/${year}/input/${day}${example ? 'e' : ''}.txt`;
-const input = fs.readFileSync(fn, 'utf-8');
+const input = fs.readFileSync(fn, 'utf-8').replace(/\r/g, '');
 
 let parts = Object.keys(dayToRun);
 if (part) {
