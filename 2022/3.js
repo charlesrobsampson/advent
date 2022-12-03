@@ -39,35 +39,35 @@ function a(input) {
 function b(input) {
     const sacks = input.split('\n');
     const priorities = {};
-    for (let i = 0; i < sacks.length / 3; i++) {
-        const c1 = sacks[i * 3];
-        const c2 = sacks[(i * 3) + 1];
-        const c3 = sacks[(i * 3) + 2];
-        let chars1 = {}
-        let chars2 = {}
-        let chars3 = {}
-        for (let c = 0; c < c1.length; c++) {
-            chars1[c1[c]] = true;
+    let group = {};
+    for (let i = 0; i < sacks.length; i++) {
+        const g = i % 3;
+        if (g === 0) {
+            group = {};
         }
-        for (let c = 0; c < c2.length; c++) {
-            chars2[c2[c]] = true;
+
+        const sack = sacks[i];
+        let letters = {};
+        for (let l = 0; l < sack.length; l++) {
+            letters[sack[l]] = true;            
         }
-        for (let c = 0; c < c3.length; c++) {
-            chars3[c3[c]] = true;
-        }
-        const chars = Object.keys(chars1);
-        let j = 0;
-        let loop = true;
-        while (loop) {
-            if (chars2[chars[j]] && chars3[chars[j]]) {
-                loop = false;
-                if (priorities[chars[j]]) {
-                    priorities[chars[j]]++;
-                } else {
-                    priorities[chars[j]] = 1;
+        group[g] = letters;
+
+        if (g == 2) {
+            const chars = Object.keys(group[0]);
+            let j = 0;
+            let loop = true;
+            while (loop) {
+                if (group[1][chars[j]] && group[2][chars[j]]) {
+                    loop = false;
+                    if (priorities[chars[j]]) {
+                        priorities[chars[j]]++;
+                    } else {
+                        priorities[chars[j]] = 1;
+                    }
                 }
+                j++;
             }
-            j++;
         }
     }
     let total = 0;
