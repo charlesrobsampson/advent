@@ -1,21 +1,18 @@
 function a(input) {
     const motions = input.split('\n');
     const positions = getTailPositions(motions);
-    // console.log(positions);
     console.log('positions: ', Object.keys(positions).length);
 
 }
 
 function b(input) {
-    // console.log(input);
     const motions = input.split('\n');
     let rope = initializeRope(10);
-    // console.log(rope);
     let positions = {
         '0,0': 0
     };
-    let head = [0,0];
-    motions.forEach(motion => {
+    let head = [0, 0];
+    motions.forEach((motion) => {
         const [dir, ct] = motion.split(' ');
         for (let i = 0; i < ct; i++) {
             const was = [head[0], head[1]];
@@ -29,14 +26,8 @@ function b(input) {
                 head[1]--;
             }
             rope[0].pos = head;
-            // console.log({
-                // i: 0,
-                // head,
-                // was
-            // });
             rope = moveRope(rope, 1, was);
             const pos = rope[rope.length - 1].pos.join(',');
-            console.log(pos);
             if (positions[pos]) {
                 positions[pos]++;
             } else {
@@ -44,7 +35,6 @@ function b(input) {
             }
         }
     });
-    // console.log(positions);
     console.log('positions: ', Object.keys(positions).length);
 }
 
@@ -52,8 +42,8 @@ function getTailPositions(motions) {
     let positions = {
         '0,0': 1
     };
-    let head = [0,0];
-    let tail = [0,0];
+    let head = [0, 0];
+    let tail = [0, 0];
     motions.forEach(motion => {
         const [dir, ct] = motion.split(' ');
         for (let i = 0; i < ct; i++) {
@@ -86,27 +76,31 @@ function initializeRope(knots) {
     for (let i = 0; i < knots; i++) {
         rope.push({
             knot: i,
-            pos: [0,0]
+            pos: [0, 0]
         });
     }
     return rope;
 }
 
 function moveRope(rope, i, was) {
-    // console.log({
-    //     prev: rope[i-1],
-    //     this: rope[i]
-    // });
-    const prev = [...rope[i-1].pos];
+    const prev = [...rope[i - 1].pos];
     const knot = [...rope[i].pos];
-    // console.log({
-    //     i,
-    //     prev,
-    //     knot,
-    //     was
-    // });
-    if (Math.abs(prev[0] - knot[0]) > 1 || Math.abs(prev[1] - knot[1]) > 1) {
-        rope[i].pos = [...was];
+    const xdif = prev[0] - knot[0];
+    const ydif = prev[1] - knot[1];
+    const dx = xdif > 0 ? 1 : -1;
+    const dy = ydif > 0 ? 1 : -1;
+    if ((Math.abs(xdif) > 1 && Math.abs(ydif) === 1) || (Math.abs(ydif) > 1 && Math.abs(xdif) === 1)) {
+        rope[i].pos = [knot[0] + dx, knot[1] + dy];
+    } else if (Math.abs(xdif) > 1 || Math.abs(ydif) > 1) {
+        if (Math.abs(xdif) === 0 || Math.abs(ydif) === 0) {
+            if (xdif === 0) {
+                rope[i].pos = [knot[0], knot[1] + dy];
+            } else {
+                rope[i].pos = [knot[0] + dx, knot[1]];
+            }
+        } else {
+            rope[i].pos = [...was];
+        }
     }
     if (i === rope.length - 1) {
         return rope;
