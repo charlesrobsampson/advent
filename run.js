@@ -1,3 +1,4 @@
+const { time } = require('console');
 const fs = require('fs');
 const year = process.argv[2];
 const day = process.argv[3];
@@ -20,6 +21,8 @@ if (part) {
 parts.forEach((p) => {
     console.log(`\nRunning ${year}/${day} part ${p}${example ? ' example input' : ''}`);
     console.log('-----------------------');
+    console.time('runtime');
     dayToRun[p](input);
     console.log('-----------------------');
+    console.timeEnd('runtime');
 });
